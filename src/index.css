@@ -1,0 +1,56 @@
+/* Design tokens pulled from the Figma frame "Wireframe - 1" (node 2:2) */
+:root {
+  /* Depth palette, surface → seafloor */
+  --sky: #32b5f2;
+  --sunlit: #3082db;
+  --twilight: #365fab; /* Figma: #3082db @ 50% over #3c3c7c */
+  --midnight: #3c3c7c;
+  --abyss: #1e1d44;
+  --sand: #ffdb99;
+
+  --ink: #3c3c7c; /* text on light (iceberg) panels */
+  --foam: #ffffff;
+  --frame-glow: rgba(255, 255, 255, 0.25);
+  --frame-shade: #6f72ba;
+  --frame-shade-soft: rgba(111, 114, 186, 0.5);
+
+  /* P22 Roanoke Script is an Adobe Fonts face; Pinyon Script is the free stand-in */
+  --font-script: 'P22 Roanoke Script', 'Pinyon Script', cursive;
+  --font-body: 'Averia Libre', Georgia, serif;
+
+  /* Type scale: Figma px at a 1440 frame, expressed in vw with sane bounds */
+  --fs-nav: clamp(1.25rem, 2.5vw, 2.75rem); /* 36px */
+  --fs-title-xl: clamp(3rem, 6.32vw, 7rem); /* 91px */
+  --fs-title: clamp(2.6rem, 5.56vw, 6rem); /* 80px */
+  --fs-lead: clamp(0.9rem, 1.39vw, 1.5rem); /* 20px */
+  --fs-body: clamp(0.8rem, 1.25vw, 1.35rem); /* 18px */
+
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: var(--foam);
+  background: var(--sky);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: none;
+}
