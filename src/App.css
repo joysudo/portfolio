@@ -61,7 +61,7 @@ html {
 
 .text-block,
 .script-title,
-.sunlit__skills-copy {
+.skills {
   z-index: 5;
 }
 
@@ -233,7 +233,63 @@ html {
   width: 38.82%;
 }
 
+/* Jellyfish idle: bob along each jelly's own axis while squashing and stretching.
+   --tilt   element rotation from Figma
+   --axis   extra swim direction for art that is drawn at an angle
+   --flip   -1 for jellies mirrored in Figma
+   Transform order: tilt, axis, bob, squash/stretch (in the swim frame), undo axis, flip,
+   so the motion follows the axis and the mirror never leaks into it. */
+.jelly {
+  --tilt: 0deg;
+  --axis: 0deg;
+  --flip: 1;
+  --bob: -0.55vw;
+  --squash: 0.035;
+
+  transform-origin: 50% 35%; /* pivot near the bell */
+  transform: rotate(var(--tilt)) scale(var(--flip), 1);
+  animation: jelly-idle var(--jelly-duration, 4.2s) ease-in-out var(--jelly-delay, 0s) infinite
+    alternate;
+}
+
+/* from: squashed (shorter + wider) at rest; to: stretched (taller + thinner) at the top of the bob */
+@keyframes jelly-idle {
+  from {
+    transform: rotate(var(--tilt)) rotate(var(--axis)) translateY(0)
+      scale(calc(1 + var(--squash)), calc(1 - var(--squash))) rotate(calc(var(--axis) * -1))
+      scale(var(--flip), 1);
+  }
+  to {
+    transform: rotate(var(--tilt)) rotate(var(--axis)) translateY(var(--bob))
+      scale(calc(1 - var(--squash)), calc(1 + var(--squash))) rotate(calc(var(--axis) * -1))
+      scale(var(--flip), 1);
+  }
+}
+
+/* Jellies not tied to the selected skill fade back; filter leaves the animated transform alone */
+.jelly {
+  transition: filter 0.5s ease;
+}
+
+.jelly.is-dimmed {
+  filter: brightness(0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jelly {
+    animation: none;
+  }
+  .skills__item,
+  .skills__details-body {
+    transition: none;
+    animation: none;
+  }
+}
+
 .sunlit__jelly-blue-a {
+  --jelly-duration: 4.4s;
+  --jelly-delay: -1.2s;
+
   left: 20.83%;
   top: 25%;
   width: 6.46%;
@@ -243,28 +299,37 @@ html {
   left: 22.71%;
   top: 38.28%;
   width: 18.13%;
-  transform: scaleX(-1);
+  --flip: -1;
+  --axis: 45deg; /* art is drawn swimming up and to the right */
+  --jelly-duration: 5.2s;
+  --jelly-delay: -2.6s;
 }
 
 .sunlit__jelly-blue-b {
   left: 10.9%;
   top: 43.36%;
   width: 7.64%;
-  transform: scaleX(-1);
+  --flip: -1;
+  --jelly-duration: 3.8s;
+  --jelly-delay: -0.4s;
 }
 
 .sunlit__jelly-orange-a {
   left: 4.86%;
   top: 72.27%;
   width: 8.4%;
-  transform: scaleX(-1);
+  --flip: -1;
+  --jelly-duration: 4.8s;
+  --jelly-delay: -3.1s;
 }
 
 .sunlit__jelly-orange-b {
   left: 14.34%;
   top: 61.94%;
   width: 8.4%;
-  transform: rotate(15.56deg);
+  --tilt: 15.56deg;
+  --jelly-duration: 4.1s;
+  --jelly-delay: -1.9s;
 }
 
 .sunlit__skill-media {
@@ -296,14 +361,98 @@ html {
   transform: translate(-50%, -50%) rotate(11.01deg);
 }
 
-.sunlit__skills-copy {
+/* Skills: right-aligned list under the "Skills" title, details below it */
+.skills {
   position: absolute;
   right: 6.8%;
   top: 55.27%;
-  width: 14.38%;
+  width: 16%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.2em;
   font-size: var(--fs-body);
-  line-height: 1;
+  line-height: 1.1;
   text-align: right;
+}
+
+.skills__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skills__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.1em 0;
+  border: 0;
+  background: none;
+  color: var(--foam);
+  font: inherit;
+  font-size: var(--fs-lead);
+  font-weight: 400;
+  cursor: pointer;
+  opacity: 0.8;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.skills__item:hover,
+.skills__item:focus-visible {
+  opacity: 1;
+  transform: translateX(-0.3em);
+}
+
+.skills__item:focus-visible {
+  outline: 2px solid var(--foam);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skills__item[aria-pressed='true'] {
+  opacity: 1;
+  font-weight: 700;
+}
+
+.skills__dot {
+  width: 0.55em;
+  height: 0.55em;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--dot);
+  box-shadow: 0 0 0 0 var(--dot);
+  transition: box-shadow 0.3s ease;
+}
+
+.skills__item[aria-pressed='true'] .skills__dot {
+  box-shadow: 0 0 0.6em 0.1em var(--dot);
+}
+
+.skills__details {
+  min-height: 7em; /* holds the space so the section doesn't jump */
+}
+
+.skills__details-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  animation: fade-in 0.4s ease;
+}
+
+.skills__meta {
+  font-weight: 700;
+}
+
+.skills__hint {
+  font-style: italic;
+  opacity: 0.7;
 }
 
 /* ---------- Bubble frames (shared look) ---------- */

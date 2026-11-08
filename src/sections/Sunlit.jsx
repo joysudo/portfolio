@@ -1,4 +1,7 @@
+import { useState } from 'react'
 import Art from '../components/Art'
+import SkillList from '../components/SkillList'
+import { SKILLS } from '../data/skills'
 import TextBlock from '../components/TextBlock'
 import Wave from '../components/Wave'
 import jellyBlue from '../assets/jellyfish_blue.png'
@@ -8,7 +11,18 @@ import jellyNet from '../assets/jellyfish_net.png'
 import bubbleFrame2 from '../assets/bubble_frame_2.png'
 import placeholderMedia from '../assets/figma/placeholder_media.png'
 
+const JELLIES = [
+  { id: 'blue-a', src: jellyBlue },
+  { id: 'pink', src: jellyPink },
+  { id: 'blue-b', src: jellyBlue },
+  { id: 'orange-a', src: jellyOrange },
+  { id: 'orange-b', src: jellyOrange },
+]
+
 export default function Sunlit() {
+  const [selected, setSelected] = useState(null)
+  const activeJelly = selected === null ? null : SKILLS[selected].jelly
+
   return (
     <section className="depth depth--sunlit" id="about">
       <Wave />
@@ -29,11 +43,14 @@ export default function Sunlit() {
         </p>
       </TextBlock>
 
-      <Art src={jellyBlue} className="sunlit__jelly-blue-a" />
-      <Art src={jellyPink} className="sunlit__jelly-pink" />
-      <Art src={jellyBlue} className="sunlit__jelly-blue-b" />
-      <Art src={jellyOrange} className="sunlit__jelly-orange-a" />
-      <Art src={jellyOrange} className="sunlit__jelly-orange-b" />
+      {/* Selecting a skill dims every jellyfish except its own */}
+      {JELLIES.map(({ id, src }) => (
+        <Art
+          key={id}
+          src={src}
+          className={`jelly sunlit__jelly-${id}${activeJelly && activeJelly !== id ? ' is-dimmed' : ''}`}
+        />
+      ))}
 
       {/* Skill showcase: media inside a bubble frame */}
       <Art src={placeholderMedia} className="sunlit__skill-media media-placeholder" />
@@ -43,10 +60,7 @@ export default function Sunlit() {
       <h2 className="script-title script-title--xl sunlit__skills-title" id="skills">
         Skills
       </h2>
-      <p className="sunlit__skills-copy">
-        This is an explanation of what the selected skill is, how long I’ve been proficient in it,
-        and what kind of work experience I have related to it.
-      </p>
+      <SkillList selected={selected} onSelect={setSelected} />
     </section>
   )
 }
