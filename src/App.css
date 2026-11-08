@@ -315,7 +315,21 @@ html {
 
 /* ---------- 3. Twilight (tech experience) ---------- */
 
+/* Whales swim above everything else on the page. Driven by --scroll-progress
+   (set from JS): they drift right and rise slightly faster than the page as you
+   scroll, at different rates so they read as two depths. */
+.twilight__whale {
+  --progress: var(--scroll-progress, 0);
+
+  z-index: 7;
+  translate: calc(var(--progress) * var(--drift-x)) calc(var(--progress) * var(--drift-y));
+  will-change: translate;
+}
+
 .twilight__whale-1 {
+  --drift-x: -1.5vw;
+  --drift-y: 2vw;
+
   left: -18.13%;
   top: 10.64%;
   width: 66.74%;
@@ -356,6 +370,9 @@ html {
 }
 
 .twilight__whale-2 {
+  --drift-x: -4vw;
+  --drift-y: 7vw;
+
   left: 8.13%;
   top: 78.03%;
   width: 61.67%;
