@@ -2,7 +2,7 @@ import Art from '../components/Art'
 import name from '../assets/name.png'
 import iceberg from '../assets/iceberg.png'
 
-const NAV_LEFT = ['Main', 'Blog', 'Fun']
+const NAV_LEFT = ['Home', 'Blog', 'Fun']
 
 export default function Surface() {
   return (

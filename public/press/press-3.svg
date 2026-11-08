@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1016" height="572" viewBox="0 0 1016 572">
+  <rect width="1016" height="572" fill="#365fab"/>
+  <rect x="48" y="48" width="920" height="476" fill="none" stroke="#f2a6c8" stroke-width="4" stroke-opacity="0.6"/>
+  <text x="508" y="150" text-anchor="middle" font-family="Georgia, serif" font-size="64" font-weight="bold" fill="#f2a6c8">Deep Current Magazine</text>
+  <rect x="96" y="200" width="824" height="6" fill="#f2a6c8" fill-opacity="0.6"/>
+  <rect x="96" y="250" width="380" height="220" fill="#f2a6c8" fill-opacity="0.25"/>
+  <g fill="#ffffff" fill-opacity="0.45">
+    <rect x="520" y="256" width="400" height="14"/><rect x="520" y="290" width="360" height="14"/>
+    <rect x="520" y="324" width="400" height="14"/><rect x="520" y="358" width="300" height="14"/>
+    <rect x="520" y="392" width="380" height="14"/><rect x="520" y="426" width="340" height="14"/>
+  </g>
+  <text x="508" y="510" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#ffffff" fill-opacity="0.6">Mock press clipping 3</text>
+</svg>
