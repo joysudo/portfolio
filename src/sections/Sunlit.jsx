@@ -23,6 +23,11 @@ export default function Sunlit() {
   const [selected, setSelected] = useState(null)
   const activeJelly = selected === null ? null : SKILLS[selected].jelly
 
+  const toggleJelly = (id) => {
+    const i = SKILLS.findIndex((s) => s.jelly === id)
+    setSelected((current) => (current === i ? null : i))
+  }
+
   return (
     <section className="depth depth--sunlit" id="about">
       <Wave />
@@ -43,13 +48,22 @@ export default function Sunlit() {
         </p>
       </TextBlock>
 
-      {/* Selecting a skill dims every jellyfish except its own */}
+      {/* Selecting a skill dims every jellyfish except its own. Each jelly is also a
+          pointer shortcut for its skill; keyboard and screen reader users get the same
+          control from the skill list, so the jellies stay out of the tab order. */}
       {JELLIES.map(({ id, src }) => (
-        <Art
+        <button
           key={id}
-          src={src}
-          className={`jelly sunlit__jelly-${id}${activeJelly && activeJelly !== id ? ' is-dimmed' : ''}`}
-        />
+          type="button"
+          tabIndex={-1}
+          aria-hidden="true"
+          className={`art jelly sunlit__jelly-${id}${activeJelly && activeJelly !== id ? ' is-dimmed' : ''}`}
+          onClick={() => toggleJelly(id)}
+        >
+          <img src={src} alt="" draggable="false" />
+          {/* Only the body is clickable, so overlapping image boxes don't steal clicks */}
+          <span className="jelly__hit" />
+        </button>
       ))}
 
       {/* Skill showcase: media inside a bubble frame */}

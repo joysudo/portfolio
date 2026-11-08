@@ -275,6 +275,43 @@ html {
   filter: brightness(0.7);
 }
 
+/* Jellies are buttons: the box ignores the pointer, only .jelly__hit catches it */
+.jelly {
+  /* Clickable ellipse over the bell + upper body, in the jelly's own (unflipped) frame */
+  --hit-left: 5%;
+  --hit-top: 0%;
+  --hit-width: 90%;
+  --hit-height: 48%;
+
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.jelly img {
+  width: 100%;
+  height: auto;
+}
+
+.jelly__hit {
+  position: absolute;
+  left: var(--hit-left);
+  top: var(--hit-top);
+  width: var(--hit-width);
+  height: var(--hit-height);
+  border-radius: 50%;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.jelly:hover {
+  filter: brightness(1.12) drop-shadow(0 0 0.6vw rgb(255 255 255 / 0.45));
+}
+
+.jelly.is-dimmed:hover {
+  filter: brightness(0.85);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .jelly {
     animation: none;
@@ -300,6 +337,9 @@ html {
   top: 38.28%;
   width: 18.13%;
   --flip: -1;
+  --hit-left: 0%;
+  --hit-width: 50%;
+  --hit-height: 52%;
   --axis: 45deg; /* art is drawn swimming up and to the right */
   --jelly-duration: 5.2s;
   --jelly-delay: -2.6s;
