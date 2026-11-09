@@ -1,16 +1,7 @@
-# React + Vite
+# Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is v2 of my personal website, taking viewers from the "tip of the iceberg" to the depths underneath. v1 is accessible at [v1byjoysu.vercel.app](https://v1byjoysu.vercel.app).
 
-Currently, two official plugins are available:
+This site was created using Vite + React. It dynamically fetches content (project descriptions, assorted press, gallery items, etc.) using the Google Sheets API. This is my lightweight way of avoiding the need to update a typed JSON and rebuild every time a skill is changed.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+You can access the latest version of the portfolio website at [byjoysu.com](https://byjoysu.com) or [byjoysu.vercel.app](https://byjoysu.vercel.app). This edition will be permanently archived at [v2byjoysu.vercel.app](https://v2byjoysu.vercel.app).
