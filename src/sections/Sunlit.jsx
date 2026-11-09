@@ -70,10 +70,13 @@ export default function Sunlit() {
       <Art src={placeholderMedia} className="sunlit__skill-media media-placeholder" />
       <Art src={bubbleFrame2} className="sunlit__skill-frame bubble-frame" />
 
-      <Art src={jellyNet} className="sunlit__net" />
-      <h2 className="script-title script-title--xl sunlit__skills-title" id="skills">
-        Skills
-      </h2>
+      <div className="sunlit__skills-group">
+        <h2 className="script-title script-title--xl sunlit__skills-title" id="skills">
+          Skills
+        </h2>
+        <Art src={jellyNet} className="sunlit__net" />
+      </div>
+
       <SkillList selected={selected} onSelect={setSelected} />
     </section>
   )

@@ -384,21 +384,32 @@ html {
   width: 36.74%;
 }
 
-.sunlit__net {
+.sunlit__skills-group {
+  position: absolute;
   z-index: 4;
   left: 58.97%;
   top: 48.18%;
   width: 40.74%;
-  transform: rotate(11.01deg) scaleX(-1);
-  filter: drop-shadow(2px 4px 4px rgb(60 60 124 / 0.5));
+  transform: rotate(11deg);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+}
+
+.sunlit__net {
+  position: static;
+  width: 100%;
+  height: auto;
+  transform: scaleX(-1); 
+  filter: drop-shadow(2px 4px 2px rgb(60 60 124 / 0.5));
 }
 
 .sunlit__skills-title {
-  position: absolute;
-  left: 84.95%;
-  top: 47.16%;
+  /* Position relative to the flex container instead of absolute page coordinates */
+  position: static;
   white-space: nowrap;
-  transform: translate(-50%, -50%) rotate(11.01deg);
+  margin-right: 25%;
 }
 
 /* Skills: right-aligned list under the "Skills" title, details below it */
@@ -513,6 +524,9 @@ html {
   z-index: 7;
   translate: calc(var(--progress) * var(--drift-x)) calc(var(--progress) * var(--drift-y));
   will-change: translate;
+  
+  --drift-x: -4vw;
+  --drift-y: 7vw;
 }
 
 .twilight__whale-1 {
@@ -814,6 +828,108 @@ html {
   inset: 0;
   width: 100%;
   height: 100%;
+}
+
+/* ---------- Krill: pupil tracking, thought bubble, ouch ---------- */
+
+.abyss__krill-pupil {
+  transition:
+    translate 0.12s ease-out,
+    filter 0.2s ease;
+}
+
+.abyss__krill {
+  transition: filter 0.2s ease;
+}
+
+.abyss__krill.is-hurt,
+.abyss__krill-pupil.is-hurt {
+  filter: brightness(0) saturate(100%) invert(31%) sepia(57%) saturate(629%) hue-rotate(306deg)
+    brightness(79%) contrast(89%);
+  transition: none; /* flash on instantly, fade back out */
+}
+
+/* Clickable porthole, sized to the krill layer's visible pixels */
+.abyss__krill-hit {
+  position: absolute;
+  left: 6%;
+  top: 51.4%;
+  width: 10.5%;
+  height: 31.5%;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.abyss__krill-hit:focus-visible {
+  outline: 2px solid var(--sand);
+  outline-offset: 2px;
+}
+
+.abyss__krill-thought {
+  position: absolute;
+  left: 11.25%; /* centred over the krill */
+  bottom: 56%;
+  translate: -50% 0;
+  width: max-content;
+  max-width: 14vw;
+  padding: 0.45em 0.85em;
+  border-radius: 1.2em;
+  background: var(--foam);
+  color: var(--ink);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.15;
+  text-align: center;
+  pointer-events: none;
+  filter: drop-shadow(0 0.2vw 0.5vw rgb(10 10 40 / 0.4));
+  transform-origin: 50% 100%;
+  animation: thought-pop 0.25s cubic-bezier(0.3, 1.5, 0.6, 1);
+}
+
+/* Trailing thought dots down towards the krill */
+.abyss__krill-thought::before,
+.abyss__krill-thought::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  border-radius: 50%;
+  background: var(--foam);
+}
+
+.abyss__krill-thought::before {
+  width: 0.55em;
+  height: 0.55em;
+  bottom: -0.75em;
+  translate: -60% 0;
+}
+
+.abyss__krill-thought::after {
+  width: 0.3em;
+  height: 0.3em;
+  bottom: -1.2em;
+  translate: -20% 0;
+}
+
+.abyss__krill-thought.is-hurt {
+  color: #b23a48;
+  font-weight: 700;
+}
+
+@keyframes thought-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .abyss__krill-thought {
+    animation: none;
+  }
 }
 
 /* Submarine buttons: arrow sized with the viewport, padded for a bigger hit area.
