@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import Art from '../components/Art'
 import Wave from '../components/Wave'
 import useCarousel from '../hooks/useCarousel'
+import useScrollProgress from '../hooks/useScrollProgress'
 import useSheet, { RANGES } from '../data/sheets'
 import submarineRays from '../assets/submarine_rays.png'
 import submarine from '../assets/submarine.png'
@@ -29,6 +30,7 @@ const PUPIL_Y = 0.62
 const PUPIL_RANGE = 0.004
 
 export default function Abyss() {
+  const sectionRef = useScrollProgress()
   const { items, status } = useSheet(RANGES.press)
   const { active, prev, next, onKeyDown } = useCarousel(items.length)
   const item = items[active]
@@ -84,112 +86,114 @@ export default function Abyss() {
   const bubble = hurt ? 'ouch!' : thought
 
   return (
-    <section className="depth depth--abyss" id="press">
+    <section className="depth depth--abyss" id="press" ref={sectionRef}>
       <div className="abyss__sand" aria-hidden="true">
         <Wave variant="sand" />
       </div>
 
       <Art src={chest} className="abyss__chest" />
-
-      {/* Spotlight display: every clipping is stacked, the active one fades in */}
-      <a
-        className="abyss__press-media"
-        href={item?.url}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={item ? `Read in ${item.publication} (opens in a new tab)` : undefined}
-      >
-        {items.map((p, i) => (
-          <img
-            key={p.url}
-            src={p.media}
-            alt=""
-            className={i === active ? 'is-active' : undefined}
-            draggable="false"
-          />
-        ))}
-      </a>
-      <Art src={submarineRays} className="abyss__rays" />
-
-      {/* Stacked layers share one box so they stay registered */}
-      <div className="abyss__submarine" ref={subRef}>
-        <img src={submarine} alt="" aria-hidden="true" draggable="false" />
-        <img
-          src={krillPupil}
-          alt=""
-          aria-hidden="true"
-          ref={pupilRef}
-          className={`abyss__krill-pupil${hurt ? ' is-hurt' : ''}`}
-          draggable="false"
-        />
-        <img
-          src={krill}
-          alt=""
-          aria-hidden="true"
-          className={`abyss__krill${hurt ? ' is-hurt' : ''}`}
-          draggable="false"
-        />
-        <button
-          type="button"
-          className="abyss__krill-hit"
-          aria-label="Poke the krill"
-          onMouseEnter={think}
-          onMouseLeave={() => setThought(null)}
-          onFocus={think}
-          onBlur={() => setThought(null)}
-          onClick={poke}
-        />
-        {bubble && (
-          <p key={bubble} className={`abyss__krill-thought${hurt ? ' is-hurt' : ''}`} aria-hidden="true">
-            {bubble}
-          </p>
-        )}
-      </div>
-
-      <div
-        className="abyss__press-nav"
-        role="group"
-        aria-label="Selected press"
-        onKeyDown={onKeyDown}
-      >
-        <button type="button" onClick={prev} aria-label="Previous press item">
-          <img src={arrow} alt="" />
-        </button>
-        <button type="button" onClick={next} aria-label="Next press item">
-          <img src={arrow} alt="" className="flip-x" />
-        </button>
-      </div>
-
       <Art src={kelp} className="abyss__kelp" />
 
-      <article className="text-block text-block--right abyss__press">
-        <h2 className="script-title">Selected Press</h2>
-        <div className="text-block__body">
-          <div className="abyss__press-details" key={active} aria-live="polite">
-            {item ? (
-              <>
-                <p className="text-lead">
-                  <a href={item.url} target="_blank" rel="noreferrer">
-                    {item.publication}
-                  </a>
-                </p>
-                <p>
-                  {item.date} | {item.subtext}
-                </p>
-              </>
-            ) : (
-              <p className="text-lead">{status === 'loading' ? 'Loading press…' : 'Press could not be loaded right now.'}</p>
-            )}
-          </div>
-          <p className="abyss__press-hint">
-            Press the left and right submarine buttons to view selected press
-            <span className="abyss__press-count">
-              {' '}
-              ({active + 1}/{items.length})
-            </span>
-          </p>
+      {/* Press scene (spotlight, rays, submarine, copy) drifts as one unit*/}
+      <div className="drift-group" style={{ '--drift-x': '4vw', '--drift-y': '6vw' }}>
+        {/* Spotlight display: every clipping is stacked, the active one fades in */}
+        <a
+          className="abyss__press-media"
+          href={item?.url}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={item ? `Read in ${item.publication} (opens in a new tab)` : undefined}
+        >
+          {items.map((p, i) => (
+            <img
+              key={p.url}
+              src={p.media}
+              alt=""
+              className={i === active ? 'is-active' : undefined}
+              draggable="false"
+            />
+          ))}
+        </a>
+        <Art src={submarineRays} className="abyss__rays" />
+
+        {/* Stacked layers share one box so they stay registered */}
+        <div className="abyss__submarine" ref={subRef}>
+          <img src={submarine} alt="" aria-hidden="true" draggable="false" />
+          <img
+            src={krillPupil}
+            alt=""
+            aria-hidden="true"
+            ref={pupilRef}
+            className={`abyss__krill-pupil${hurt ? ' is-hurt' : ''}`}
+            draggable="false"
+          />
+          <img
+            src={krill}
+            alt=""
+            aria-hidden="true"
+            className={`abyss__krill${hurt ? ' is-hurt' : ''}`}
+            draggable="false"
+          />
+          <button
+            type="button"
+            className="abyss__krill-hit"
+            aria-label="Poke the krill"
+            onMouseEnter={think}
+            onMouseLeave={() => setThought(null)}
+            onFocus={think}
+            onBlur={() => setThought(null)}
+            onClick={poke}
+          />
+          {bubble && (
+            <p key={bubble} className={`abyss__krill-thought${hurt ? ' is-hurt' : ''}`} aria-hidden="true">
+              {bubble}
+            </p>
+          )}
         </div>
-      </article>
+
+        <div
+          className="abyss__press-nav"
+          role="group"
+          aria-label="Selected press"
+          onKeyDown={onKeyDown}
+        >
+          <button type="button" onClick={prev} aria-label="Previous press item">
+            <img src={arrow} alt="" />
+          </button>
+          <button type="button" onClick={next} aria-label="Next press item">
+            <img src={arrow} alt="" className="flip-x" />
+          </button>
+        </div>
+
+        <article className="text-block text-block--right abyss__press">
+          <h2 className="script-title">Selected Press</h2>
+          <div className="text-block__body">
+            <div className="abyss__press-details" key={active} aria-live="polite">
+              {item ? (
+                <>
+                  <p className="text-lead">
+                    <a href={item.url} target="_blank" rel="noreferrer">
+                      {item.publication}
+                    </a>
+                  </p>
+                  <p>
+                    {item.date} | {item.subtext}
+                  </p>
+                </>
+              ) : (
+                <p className="text-lead">{status === 'loading' ? 'Loading press…' : 'Press could not be loaded right now.'}</p>
+              )}
+            </div>
+            <p className="abyss__press-hint">
+              Press the left and right submarine buttons to view selected press
+              <span className="abyss__press-count">
+                {' '}
+                ({active + 1}/{items.length})
+              </span>
+            </p>
+          </div>
+        </article>
+      </div>
     </section>
   )
 }

@@ -549,6 +549,11 @@ html {
   will-change: translate;
 }
 
+/* pointer-events is inherited, so interactive content inside opts back in */
+.drift-group :is(a, button) {
+  pointer-events: auto;
+}
+
 /* ---------- 3. Twilight (tech experience) ---------- */
 
 /* Whales swim above everything else on the page. Driven by --scroll-progress
@@ -747,7 +752,7 @@ html {
 
 .carousel__ring {
   --radius: calc(var(--panel-w) * var(--radius-factor));
-
+  --progress: var(--scroll-progress, 0);
   position: absolute;
   inset: 0;
   margin: 0;
@@ -756,7 +761,7 @@ html {
   transform-style: preserve-3d;
   /* Push the ring back so the front panel sits at its natural size */
   transform: translateZ(calc(var(--radius) * -1))
-    rotateX(-1deg)
+    rotateX(calc(var(--progress) * 2deg))
     rotateY(calc(var(--rotation) * var(--step) * -1deg));
   transition: transform 0.9s cubic-bezier(0.22, 0.8, 0.26, 1);
 }
@@ -817,7 +822,7 @@ html {
   position: absolute;
   z-index: 2;
   left: 6.74%;
-  top: 20.12%;
+  top: 17.5%;
   width: 35.28%;
   aspect-ratio: 508 / 286;
   overflow: hidden;
