@@ -99,6 +99,7 @@ html {
   gap: 0.1em;
   font-size: var(--fs-body);
   line-height: 1;
+  z-index: 11;
 }
 
 .text-block__body {
@@ -528,6 +529,11 @@ html {
   font-weight: 700;
 }
 
+.skills__description {
+  font-style: italic;
+  opacity: 0.7;
+}
+
 .skills__hint {
   font-style: italic;
   opacity: 0.7;
@@ -542,7 +548,7 @@ html {
 .drift-group {
   position: absolute;
   inset: 0;
-  z-index: 4;
+  z-index: 10;
   pointer-events: none;
   --progress: var(--scroll-progress, 0);
   translate: calc(var(--progress) * var(--drift-x, 0vw)) calc(var(--progress) * var(--drift-y, 0vw));
@@ -562,7 +568,7 @@ html {
 .twilight__whale {
   --progress: var(--scroll-progress, 0);
 
-  z-index: 7;
+  z-index: 10;
   translate: calc(var(--progress) * var(--drift-x)) calc(var(--progress) * var(--drift-y));
   will-change: translate;
   
@@ -605,6 +611,11 @@ html {
   left: 62.92%;
   top: 35.35%;
   width: 28.82%;
+}
+
+.twilight__p1-media {
+  width: 100%;
+  z-index: 0;
 }
 
 .twilight__project-2 {

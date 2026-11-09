@@ -17,7 +17,7 @@ export default function Gallery() {
 
   return (
     <div className="midnight__gallery" id="gallery">
-      <h2 className="script-title gallery__title">Gallery</h2>
+      <h2 className="script-title gallery__title">Project Gallery</h2>
 
       <div
         className="carousel"

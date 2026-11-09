@@ -24,10 +24,8 @@ export default function SkillList({ skills, status, selected, onSelect }) {
       <div className="skills__details" aria-live="polite">
         {skill ? (
           <div key={skill.name} className="skills__details-body">
-            <p className="skills__meta">
-              {skill.name} · {skill.proficiency}
-            </p>
-            <p>{skill.description}</p>
+            <p className="skills__meta">{skill.proficiency}</p>
+            <p className="skills__description">{skill.description}</p>
             <p>{skill.experience}</p>
           </div>
         ) : (

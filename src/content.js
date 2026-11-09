@@ -1,5 +1,9 @@
-// Placeholder copy shared by the project cards
-export const PROJECT_META = 'Date: 2020 - 2024 | Chapel Hill'
+// Project n (1-based) from the PROJECTS sheet rows. While the sheet is loading it returns a
+// stand-in so the card keeps its place; if it fails or has no such row, there is no card.
+export function projectAt(projects, n, status) {
+  if (projects[n - 1]) return projects[n - 1]
+  return status === 'loading' ? { title: `Project #${n}`, meta: '', description: 'Loading…', src: '' } : null
+}
 
-export const PROJECT_COPY =
-  'This is a quick explanation of some of my work experience. It involves a couple of things that I did as part of this team and why I enjoyed this experience. Quite a few bullet points going here. Rewording the resume, basically. Also will probably include photograph at the bottom; hopefully there’s enough room here.'
+// A row can exist with only a photo; its text card is skipped until it has copy
+export const hasText = (project) => Boolean(project && (project.title || project.meta || project.description))
