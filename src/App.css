@@ -173,7 +173,7 @@ html {
   translate: calc(var(--progress) * var(--drift-x)) calc(var(--progress) * var(--drift-y));
   will-change: translate;
   --drift-x: 0vw;
-  --drift-y: -7vw;
+  --drift-y: -10vw;
 }
 
 .surface__iceberg {
@@ -356,7 +356,7 @@ html {
 
 .sunlit__jelly-pink {
   left: 22.71%;
-  top: 38.28%;
+  top: 40%;
   width: 18.13%;
   --flip: -1;
   --hit-left: 0%;

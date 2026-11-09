@@ -72,25 +72,12 @@ export default function Sunlit() {
     <section className="depth depth--sunlit" id="about">
       <Wave />
 
-      <TextBlock title="About" className="sunlit__about text-block--on-ice">
-        <p>
-          This is an explanation of who I am. It’s the “tip of the iceberg,” so to speak. Currently,
-          this box is only filler text, but it will eventually be filled with an actual bio. I love
-          web development. I wish Claude slop didn’t dominate it nowadays. Imagine the responsive
-          layouts possible here. I’ll discuss how I grew up learning technical skills before the AI
-          era, became worried about equity in tech, and have since been able to jump into work with
-          huge nonprofits directing initiatives for AI literacy.
-        </p>
-        <p>
-          This lets me stay connected with the technical sphere without losing sight of the
-          community around me. You can see stuff about my relevant technologies below that stuff
-          will be explained there.
-        </p>
+      <TextBlock title="Who am I?" className="sunlit__about text-block--on-ice">
+        <p>Hi, I'm Joy! I’m a creative technologist and advocate for technological literacy who got my start writing code before the AI era. My work centers on building software that fills unmet human needs and programs that examine the social impact of technology.</p>
+        <p>I'm driven by a few questions: How can technology act to amplify human creativity rather than replace it? How can AI bridge digital divides instead of widening historical gaps?</p>
+        <p> While working with nonprofits from Girls Who Code and Kode With Klossy to Mental Health America and Hack Club, I've gotten to chip away at these issues in front of a global audience. Below, you can take a look at some hobbies, technical skills, selected work experience, press features, and more underneath the tip of the iceberg.</p>
       </TextBlock>
 
-      {/* Selecting a skill dims every jellyfish except its own. Each jelly is also a
-          pointer shortcut for its skill; keyboard and screen reader users get the same
-          control from the skill list, so the jellies stay out of the tab order. */}
       {JELLIES.map(({ id, src }) => (
         <button
           key={id}
