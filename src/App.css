@@ -134,33 +134,6 @@ html {
 
 /* ---------- Nav ---------- */
 
-.site-nav {
-  position: absolute;
-  z-index: 6;
-  top: 3rem;
-  inset-inline: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding-inline: 4rem;
-  font-size: var(--fs-nav);
-  font-weight: 700;
-  line-height: 1;
-}
-
-.site-nav__group {
-  display: flex;
-  gap: clamp(1.5rem, 5.6vw, 6rem);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.site-nav a {
-  color: var(--foam);
-  text-decoration: none;
-}
-
 /* ---------- 1. Surface (sky) ---------- */
 
 .surface__name {

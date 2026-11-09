@@ -8,11 +8,13 @@ const SPREADSHEET_ID = import.meta.env.SPREADSHEET_ID
 export const RANGES = {
   gallery: 'GALLERY_ITEMS!A1:C20',
   press: 'PRESS_ITEMS!A1:E20', 
+  blog: 'BLOG!A1:F50',
   skills: 'SKILLS!A1:F6' // header + 5 skills, one per jellyfish,
 }
 
 // Sheets can store a pasted link as markdown, "[text](url)"; keep just the url
-const unwrapLink = (cell) => cell.match(/^\[[^\]]*\]\((.+)\)$/)?.[1] ?? cell
+const unwrapLink = (cell) =>
+  /\s/.test(cell) ? cell : (cell.match(/^\[[^\]]*\]\((.+)\)$/)?.[1] ?? cell)
 
 // [headers, ...rows] -> [{ header: cell }, ...]. The API drops trailing empty cells, so
 // missing cells become ''.
