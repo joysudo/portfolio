@@ -1599,6 +1599,11 @@ html {
     font-size: 0.9rem;
   }
 
+  .abyss__press-container {
+    width: 100%;
+    position: static;
+  }
+
   .depth .abyss__submarine {
     position: relative;
     left: auto;
