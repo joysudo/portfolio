@@ -551,6 +551,10 @@ html {
   z-index: 4;
 }
 
+.media-placeholder {
+    border-radius: 35% 35% 35% 35% / 35% 35% 35% 35%;
+}
+
 .drift-group {
   position: absolute;
   inset: 0;
@@ -661,7 +665,7 @@ html {
 
 .midnight__p4-media {
   left: 11.32%;
-  top: 15.92%;
+  top: 9%;
   width: 29.65%;
 }
 
