@@ -11,7 +11,7 @@ export default function Midnight() {
   return (
     
     <section className="depth depth--midnight" id="projects" ref={sectionRef}>
-      <div className="drift-group" style={{ '--drift-x': '5vw', '--drift-y': '-10vw' }}>
+      <div className="drift-group" style={{ '--drift-x': '1vw', '--drift-y': '-2vw' }}>
         <Art src={placeholderMedia} className="midnight__p4-media media-placeholder" />
         <Art src={bubbleFrame2} className="midnight__p4-frame bubble-frame" />
       </div>

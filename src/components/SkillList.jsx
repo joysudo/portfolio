@@ -1,14 +1,12 @@
-import { SKILLS } from '../data/skills'
-
 // Clickable skill names with the selected skill's details underneath.
-// `selected` is an index into SKILLS, or null when nothing is chosen.
-export default function SkillList({ selected, onSelect }) {
-  const skill = selected === null ? null : SKILLS[selected]
+// `selected` is an index into `skills`, or null when nothing is chosen.
+export default function SkillList({ skills, status, selected, onSelect }) {
+  const skill = selected === null ? null : skills[selected]
 
   return (
     <div className="skills">
       <ul className="skills__list">
-        {SKILLS.map((s, i) => (
+        {skills.map((s, i) => (
           <li key={s.name}>
             <button
               type="button"
@@ -33,7 +31,13 @@ export default function SkillList({ selected, onSelect }) {
             <p>{skill.experience}</p>
           </div>
         ) : (
-          <p className="skills__hint">Select a skill to see details.</p>
+          <p className="skills__hint">
+            {status === 'loading'
+              ? 'Loading skills…'
+              : status === 'error'
+                ? 'Oops! This site uses the Google Sheets API to fetch the most up-to-date skills data possible. Right now, the skills Google Sheet is unreachable or throwing an error.'
+                : 'Select a skill to see details.'}
+          </p>
         )}
       </div>
     </div>

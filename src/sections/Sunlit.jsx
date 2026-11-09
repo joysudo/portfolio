@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import Art from '../components/Art'
 import SkillList from '../components/SkillList'
-import { SKILLS } from '../data/skills'
+import useSheet, { RANGES } from '../data/sheets'
 import TextBlock from '../components/TextBlock'
 import Wave from '../components/Wave'
 import jellyBlue from '../assets/jellyfish_blue.png'
@@ -21,8 +21,9 @@ const JELLIES = [
 const NET_MAX_TILT = 8
 
 export default function Sunlit() {
+  const { items: skills, status } = useSheet(RANGES.skills)
   const [selected, setSelected] = useState(null)
-  const activeJelly = selected === null ? null : SKILLS[selected].jelly
+  const activeJelly = selected === null ? null : skills[selected]?.jelly
 
   // Net drag: rotate the group around its center-right pivot to follow the cursor.
   // Move/up listen on window so the drag keeps tracking after the cursor leaves the net.
@@ -63,7 +64,7 @@ export default function Sunlit() {
   }
 
   const toggleJelly = (id) => {
-    const i = SKILLS.findIndex((s) => s.jelly === id)
+    const i = skills.findIndex((s) => s.jelly === id)
     setSelected((current) => (current === i ? null : i))
   }
 
@@ -117,7 +118,7 @@ export default function Sunlit() {
         <Art src={jellyNet} className="sunlit__net" />
       </div>
 
-      <SkillList selected={selected} onSelect={setSelected} />
+      <SkillList skills={skills} status={status} selected={selected} onSelect={setSelected} />
     </section>
   )
 }

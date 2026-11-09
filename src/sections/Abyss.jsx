@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import Art from '../components/Art'
 import Wave from '../components/Wave'
 import useCarousel from '../hooks/useCarousel'
-import { PRESS_ITEMS } from '../data/press'
+import useSheet, { RANGES } from '../data/sheets'
 import submarineRays from '../assets/submarine_rays.png'
 import submarine from '../assets/submarine.png'
 import krillPupil from '../assets/krill_pupil.png'
@@ -29,8 +29,9 @@ const PUPIL_Y = 0.62
 const PUPIL_RANGE = 0.004
 
 export default function Abyss() {
-  const { active, prev, next, onKeyDown } = useCarousel(PRESS_ITEMS.length)
-  const item = PRESS_ITEMS[active]
+  const { items, status } = useSheet(RANGES.press)
+  const { active, prev, next, onKeyDown } = useCarousel(items.length)
+  const item = items[active]
 
   const [thought, setThought] = useState(null)
   const [hurt, setHurt] = useState(false)
@@ -93,12 +94,12 @@ export default function Abyss() {
       {/* Spotlight display: every clipping is stacked, the active one fades in */}
       <a
         className="abyss__press-media"
-        href={item.url}
+        href={item?.url}
         target="_blank"
         rel="noreferrer"
-        aria-label={`Read in ${item.publication} (opens in a new tab)`}
+        aria-label={item ? `Read in ${item.publication} (opens in a new tab)` : undefined}
       >
-        {PRESS_ITEMS.map((p, i) => (
+        {items.map((p, i) => (
           <img
             key={p.url}
             src={p.media}
@@ -165,20 +166,26 @@ export default function Abyss() {
         <h2 className="script-title">Selected Press</h2>
         <div className="text-block__body">
           <div className="abyss__press-details" key={active} aria-live="polite">
-            <p className="text-lead">
-              <a href={item.url} target="_blank" rel="noreferrer">
-                {item.publication}
-              </a>
-            </p>
-            <p>
-              {item.date} | {item.subtext}
-            </p>
+            {item ? (
+              <>
+                <p className="text-lead">
+                  <a href={item.url} target="_blank" rel="noreferrer">
+                    {item.publication}
+                  </a>
+                </p>
+                <p>
+                  {item.date} | {item.subtext}
+                </p>
+              </>
+            ) : (
+              <p className="text-lead">{status === 'loading' ? 'Loading press…' : 'Press could not be loaded right now.'}</p>
+            )}
           </div>
           <p className="abyss__press-hint">
             Press the left and right submarine buttons to view selected press
             <span className="abyss__press-count">
               {' '}
-              ({active + 1}/{PRESS_ITEMS.length})
+              ({active + 1}/{items.length})
             </span>
           </p>
         </div>
