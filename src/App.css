@@ -55,10 +55,6 @@ html {
   z-index: 3;
 }
 
-.bubble-frame {
-  z-index: 4;
-}
-
 .text-block,
 .script-title,
 .skills {
@@ -85,6 +81,8 @@ html {
   font-weight: 400;
   font-size: var(--fs-title);
   line-height: 0.5;
+
+
 }
 
 .script-title--xl {
@@ -166,6 +164,13 @@ html {
   left: 24.1%;
   top: 28.6%;
   width: 51.8%;
+  
+  --progress: var(--scroll-progress, 0);
+  z-index: 0;
+  translate: calc(var(--progress) * var(--drift-x)) calc(var(--progress) * var(--drift-y));
+  will-change: translate;
+  --drift-x: 0vw;
+  --drift-y: -7vw;
 }
 
 .surface__iceberg {
@@ -538,11 +543,20 @@ html {
   opacity: 0.7;
 }
 
-/* ---------- Bubble frames (shared look) ---------- */
-
 .bubble-frame {
   filter: drop-shadow(-4px -4px 4px var(--frame-glow))
     drop-shadow(4px 4px 4px var(--frame-shade-soft));
+  z-index: 4;
+}
+
+.drift-group {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  --progress: var(--scroll-progress, 0);
+  translate: calc(var(--progress) * var(--drift-x, 0vw)) calc(var(--progress) * var(--drift-y, 0vw));
+  will-change: translate;
 }
 
 /* ---------- 3. Twilight (tech experience) ---------- */
@@ -639,12 +653,13 @@ html {
 .midnight__p4-frame {
   position: absolute;
   z-index: 4;
-  left: 25%;
-  top: 27%;
+  left: 6%;
+  top: 2.5%;
   width: 40%;
   height: 50%;
   aspect-ratio: auto;
   pointer-events: none;
+  transform: scaleY(-1);
 }
 
 .midnight__p4-frame img {

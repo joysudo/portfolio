@@ -36,8 +36,10 @@ export default function Twilight() {
       <Art src={whale2} className="twilight__whale twilight__whale-2" />
 
       {/* Project #3 media, hangs down into the midnight zone */}
-      <Art src={placeholderMedia} className="twilight__p3-media media-placeholder" />
-      <Art src={bubbleFrame1} className="twilight__p3-frame bubble-frame" />
+      <div className="drift-group" style={{ '--drift-x': '1vw', '--drift-y': '-2vw' }}>
+        <Art src={placeholderMedia} className="twilight__p3-media media-placeholder" />
+        <Art src={bubbleFrame1} className="twilight__p3-frame bubble-frame" />
+      </div>
     </section>
   )
 }

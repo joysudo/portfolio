@@ -4,14 +4,19 @@ import Gallery from '../components/Gallery'
 import { PROJECT_COPY, PROJECT_META } from '../content'
 import bubbleFrame2 from '../assets/bubble_frame_2.png'
 import placeholderMedia from '../assets/figma/placeholder_media.png'
+import useScrollProgress from '../hooks/useScrollProgress'
 
 export default function Midnight() {
+  const sectionRef = useScrollProgress()
   return (
-    <section className="depth depth--midnight" id="projects">
-      <Art src={placeholderMedia} className="midnight__p4-media media-placeholder" />
-      <div className="midnight__p4-frame" aria-hidden="true">
-        <img src={bubbleFrame2} alt="" className="bubble-frame" draggable="false" />
+    
+    <section className="depth depth--midnight" id="projects" ref={sectionRef}>
+      <div className="drift-group" style={{ '--drift-x': '5vw', '--drift-y': '-10vw' }}>
+        <Art src={placeholderMedia} className="midnight__p4-media media-placeholder" />
+        <Art src={bubbleFrame2} className="midnight__p4-frame bubble-frame" />
       </div>
+
+      
 
       <TextBlock
         title="Project #3"
