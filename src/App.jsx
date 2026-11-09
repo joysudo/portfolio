@@ -5,7 +5,7 @@ import Twilight from './sections/Twilight'
 import Midnight from './sections/Midnight'
 import Abyss from './sections/Abyss'
 import SectionNav from './components/SectionNav'
-import Blog from './pages/Blog'
+import Lists from './pages/Lists'
 import './App.css'
 
 function Home() {
@@ -27,7 +27,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/blog/:slug?" element={<Blog />} />
+      <Route path="/lists/:slug?" element={<Lists />} />
     </Routes>
   )
 }

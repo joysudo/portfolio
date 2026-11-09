@@ -5,7 +5,7 @@ import './SiteNav.css'
 // top of the nearest `position: relative` ancestor. The page you're on gets a wavy underline.
 const PAGES = [
   { label: 'Home', to: '/' },
-  { label: 'Blog', to: '/blog' },
+  { label: 'Lists', to: '/lists' },
 ]
 
 export default function SiteNav() {
@@ -20,7 +20,7 @@ export default function SiteNav() {
           </li>
         ))}
       </ul>
-      <Link to="/#contact">Contact</Link>
+      <Link to="mailto:joysu2008@gmail.com">Contact</Link>
     </nav>
   )
 }
