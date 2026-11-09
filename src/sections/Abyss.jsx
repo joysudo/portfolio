@@ -33,7 +33,7 @@ export default function Abyss() {
   const sectionRef = useScrollProgress()
   const { items, status } = useSheet(RANGES.press)
   const { active, prev, next, onKeyDown } = useCarousel(items.length)
-  const item = items[active]
+  const item = items[active] || {}
 
   const [thought, setThought] = useState(null)
   const [hurt, setHurt] = useState(false)
@@ -97,23 +97,34 @@ export default function Abyss() {
       {/* Press scene (spotlight, rays, submarine, copy) drifts as one unit*/}
       <div className="drift-group" style={{ '--drift-x': '4vw', '--drift-y': '6vw' }}>
         {/* Spotlight display: every clipping is stacked, the active one fades in */}
-        <a
-          className="abyss__press-media"
-          href={item?.url}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={item ? `Read in ${item.publication} (opens in a new tab)` : undefined}
-        >
-          {items.map((p, i) => (
-            <img
-              key={p.url}
-              src={p.media}
-              alt=""
-              className={i === active ? 'is-active' : undefined}
-              draggable="false"
-            />
-          ))}
-        </a>
+        <div className="abyss__press-container">
+          <a
+            className="abyss__press-link"
+            href={item?.url}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={item ? `Read in ${item?.publication} (opens in a new tab)` : undefined}
+          >
+            <h2 className="abyss__press-title">{item?.title}</h2>
+          </a>
+          <a
+            className="abyss__press-media"
+            href={item?.url}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={item ? `Read in ${item?.publication} (opens in a new tab)` : undefined}
+          >
+            {items.map((p, i) => (
+              <img
+                key={p.url}
+                src={p.media}
+                alt=""
+                className={i === active ? 'is-active' : undefined}
+                draggable="false"
+              />
+            ))}
+          </a>
+        </div>
         <Art src={submarineRays} className="abyss__rays" />
 
         {/* Stacked layers share one box so they stay registered */}
@@ -172,12 +183,12 @@ export default function Abyss() {
               {item ? (
                 <>
                   <p className="text-lead">
-                    <a href={item.url} target="_blank" rel="noreferrer">
-                      {item.publication}
+                    <a href={item?.url} target="_blank" rel="noreferrer">
+                      {item?.publication}
                     </a>
                   </p>
                   <p>
-                    {item.date} | {item.subtext}
+                    {item?.date} | {item?.subtext}
                   </p>
                 </>
               ) : (

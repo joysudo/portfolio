@@ -7,7 +7,7 @@ const SPREADSHEET_ID = import.meta.env.SPREADSHEET_ID
 
 export const RANGES = {
   gallery: 'GALLERY_ITEMS!A1:D20',
-  press: 'PRESS_ITEMS!A1:E20', 
+  press: 'PRESS!A1:F20', 
   projects: 'PROJECTS!A1:D10',
   blog: 'BLOG!A1:F50',
   skills: 'SKILLS!A1:F6' // header + 5 skills, one per jellyfish,

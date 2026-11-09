@@ -852,12 +852,40 @@ html {
 }
 
 /* Spotlight display: clippings stacked in one 508×286 box, active one fades in */
-.abyss__press-media {
+.abyss__press-container {
   position: absolute;
   z-index: 2;
-  left: 6.74%;
-  top: 17.5%;
-  width: 35.28%;
+  left: 6.7%; /* haha funny number */
+  top: 15%;
+  width: 35%;
+}
+
+.abyss__press-link {
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+}
+
+.abyss__press-link:hover .abyss__press-title {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.abyss__press-title {
+  font-style: italic;
+  line-height: 0.8;
+  margin-bottom: 0.3rem;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 0.5) 75%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+}
+
+.abyss__press-media {
+  display: block;
+  position: relative;
+  width: 100%;
   aspect-ratio: 508 / 286;
   overflow: hidden;
   border-radius: 0.4vw;
