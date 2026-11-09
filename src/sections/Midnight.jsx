@@ -28,13 +28,13 @@ export default function Midnight() {
           meta={p3.meta}
           className="midnight__project-3 text-block--right"
         >
-          <p>{p3.description}</p>
+          <p>{p3?.description.replaceAll('\\n', '\n')}</p>
         </TextBlock>
       )}
 
       {hasText(p4) && (
         <TextBlock title={p4.title} meta={p4.meta} className="midnight__project-4">
-          <p>{p4.description}</p>
+          <p>{p4?.description.replaceAll('\\n', '\n')}</p>
         </TextBlock>
       )}
 

@@ -31,7 +31,7 @@ export default function Twilight() {
             meta={p1.meta}
             className="twilight__project-1 text-block--on-ice"
           >
-            <p>{p1.description}</p>
+            <p>{p1?.description.replaceAll('\\n', '\n')}</p>
             {p1.src && (
               <p>
                 <Art src={p1.src} alt={p1.title} className="twilight__p1-media media-placeholder" />
@@ -44,7 +44,7 @@ export default function Twilight() {
       {/* Project #2 has no photo, whatever its src cell says */}
       {hasText(p2) && (
         <TextBlock title={p2.title} meta={p2.meta} className="twilight__project-2">
-          <p>{p2.description}</p>
+          <p>{p2?.description.replaceAll('\\n', '\n')}</p>
         </TextBlock>
       )}
 
