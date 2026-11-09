@@ -9,7 +9,6 @@ export default function Midnight() {
   return (
     <section className="depth depth--midnight" id="projects">
       <Art src={placeholderMedia} className="midnight__p4-media media-placeholder" />
-      {/* Landscape bubble frame: the portrait frame rotated a quarter turn */}
       <div className="midnight__p4-frame" aria-hidden="true">
         <img src={bubbleFrame2} alt="" className="bubble-frame" draggable="false" />
       </div>

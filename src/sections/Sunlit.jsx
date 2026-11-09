@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import Art from '../components/Art'
 import SkillList from '../components/SkillList'
 import { SKILLS } from '../data/skills'
@@ -8,8 +8,6 @@ import jellyBlue from '../assets/jellyfish_blue.png'
 import jellyPink from '../assets/jellyfish_pink.png'
 import jellyOrange from '../assets/jellyfish_orange.png'
 import jellyNet from '../assets/jellyfish_net.png'
-import bubbleFrame2 from '../assets/bubble_frame_2.png'
-import placeholderMedia from '../assets/figma/placeholder_media.png'
 
 const JELLIES = [
   { id: 'blue-a', src: jellyBlue },
@@ -19,9 +17,50 @@ const JELLIES = [
   { id: 'orange-b', src: jellyOrange },
 ]
 
+// How far (deg) the net can be dragged either way from its resting angle
+const NET_MAX_TILT = 8
+
 export default function Sunlit() {
   const [selected, setSelected] = useState(null)
   const activeJelly = selected === null ? null : SKILLS[selected].jelly
+
+  // Net drag: rotate the group around its center-right pivot to follow the cursor.
+  // Move/up listen on window so the drag keeps tracking after the cursor leaves the net.
+  const netRef = useRef(null)
+
+  const grabNet = (e) => {
+    if (e.button !== 0) return
+    const el = netRef.current
+    // offsetLeft/Top ignore transforms, so this is the untransformed center-right: the pivot
+    const parent = el.offsetParent.getBoundingClientRect()
+    const pivotX = parent.left + el.offsetLeft + el.offsetWidth
+    const pivotY = parent.top + el.offsetTop + el.offsetHeight / 2
+    const angleTo = (p) => (Math.atan2(p.clientY - pivotY, p.clientX - pivotX) * 180) / Math.PI
+    const start = angleTo(e)
+    // Start from wherever the swivel currently is, so grabbing doesn't jump
+    const base = parseFloat(getComputedStyle(el).rotate) || 0
+
+    const drag = (m) => {
+      const delta = ((angleTo(m) - start + 540) % 360) - 180
+      el.style.rotate = `${Math.max(-NET_MAX_TILT, Math.min(NET_MAX_TILT, base + delta))}deg`
+    }
+    const release = () => {
+      window.removeEventListener('pointermove', drag)
+      window.removeEventListener('pointerup', release)
+      window.removeEventListener('pointercancel', release)
+      // Ease back to rest, then the idle swivel restarts from 0deg without a jump
+      el.classList.replace('is-held', 'is-settling')
+      el.style.rotate = ''
+    }
+
+    e.preventDefault()
+    el.classList.remove('is-settling')
+    el.classList.add('is-held')
+    el.style.rotate = `${base}deg`
+    window.addEventListener('pointermove', drag)
+    window.addEventListener('pointerup', release)
+    window.addEventListener('pointercancel', release)
+  }
 
   const toggleJelly = (id) => {
     const i = SKILLS.findIndex((s) => s.jelly === id)
@@ -66,11 +105,12 @@ export default function Sunlit() {
         </button>
       ))}
 
-      {/* Skill showcase: media inside a bubble frame */}
-      <Art src={placeholderMedia} className="sunlit__skill-media media-placeholder" />
-      <Art src={bubbleFrame2} className="sunlit__skill-frame bubble-frame" />
-
-      <div className="sunlit__skills-group">
+      <div
+        ref={netRef}
+        className="sunlit__skills-group"
+        onPointerDown={grabNet}
+        onTransitionEnd={(e) => e.target === e.currentTarget && e.currentTarget.classList.remove('is-settling')}
+      >
         <h2 className="script-title script-title--xl sunlit__skills-title" id="skills">
           Skills
         </h2>
