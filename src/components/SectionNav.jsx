@@ -5,7 +5,7 @@ const SLACK = 10 // px of tolerance so a section already at the top isn't a targ
 
 
 const sectionTops = () => {
-  const vhoffset = window.innerHeight * 0.2
+  const vhoffset = window.innerHeight * 0.12
   return [...document.querySelectorAll('.ocean > .depth')].map(
     (el, i) => el.getBoundingClientRect().top + window.scrollY + (i >= 2 ? vhoffset : 0),
   )

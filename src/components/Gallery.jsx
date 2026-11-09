@@ -55,10 +55,15 @@ export default function Gallery() {
           <img src={arrow} alt="" className="flip-x" />
         </button>
       </div>
-
-      <p className="text-lead gallery__description" key={active} aria-live="polite">
-        {items[active]?.description ?? STATUS_TEXT[status]}
-      </p>
+      
+      <div key={active}>
+        <p className="text-lead gallery__heading" aria-live="polite">
+          {items[active]?.title ?? ""}
+        </p>
+        <p className="text-lead gallery__description" aria-live="polite">
+          {items[active]?.description ?? STATUS_TEXT[status]}
+        </p>
+      </div>
     </div>
   )
 }
