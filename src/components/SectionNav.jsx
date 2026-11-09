@@ -5,15 +5,11 @@ const SLACK = 10 // px of tolerance so a section already at the top isn't a targ
 
 
 const sectionTops = () => {
-  const vh10 = window.innerHeight * 0.1
+  const vhoffset = window.innerHeight * 0.2
   return [...document.querySelectorAll('.ocean > .depth')].map(
-    (el, i) => el.getBoundingClientRect().top + window.scrollY + (i >= 2 ? vh10 : 0),
+    (el, i) => el.getBoundingClientRect().top + window.scrollY + (i >= 2 ? vhoffset : 0),
   )
 }
-// const sectionTops = () =>
-//   [...document.querySelectorAll('.ocean > .depth')].map(
-//     (el) => el.getBoundingClientRect().top + window.scrollY,
-//   )
 
 // Smooth-scroll to the next (+1) or previous (-1) section top
 function go(direction) {

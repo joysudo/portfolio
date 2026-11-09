@@ -78,20 +78,23 @@ export default function Sunlit() {
         <p> While working with nonprofits from Girls Who Code and Kode With Klossy to Mental Health America and Hack Club, I've gotten to chip away at these issues in front of a global audience. Below, you can take a look at some hobbies, technical skills, selected work experience, press features, and more underneath the tip of the iceberg.</p>
       </TextBlock>
 
-      {JELLIES.map(({ id, src }) => (
-        <button
-          key={id}
-          type="button"
-          tabIndex={-1}
-          aria-hidden="true"
-          className={`art jelly sunlit__jelly-${id}${activeJelly && activeJelly !== id ? ' is-dimmed' : ''}`}
-          onClick={() => toggleJelly(id)}
-        >
-          <img src={src} alt="" draggable="false" />
-          {/* Only the body is clickable, so overlapping image boxes don't steal clicks */}
-          <span className="jelly__hit" />
-        </button>
-      ))}
+      {/* One box for the five jellies: invisible on desktop, a row on mobile */}
+      <div className="sunlit__jellies">
+        {JELLIES.map(({ id, src }) => (
+          <button
+            key={id}
+            type="button"
+            tabIndex={-1}
+            aria-hidden="true"
+            className={`art jelly sunlit__jelly-${id}${activeJelly && activeJelly !== id ? ' is-dimmed' : ''}`}
+            onClick={() => toggleJelly(id)}
+          >
+            <img src={src} alt="" draggable="false" />
+            {/* Only the body is clickable, so overlapping image boxes don't steal clicks */}
+            <span className="jelly__hit" />
+          </button>
+        ))}
+      </div>
 
       <div
         ref={netRef}

@@ -229,6 +229,11 @@ html {
   width: 38.82%;
 }
 
+/* Wrapper only matters on mobile; on desktop it generates no box, so jellies place against the section */
+.sunlit__jellies {
+  display: contents;
+}
+
 /* Jellyfish idle: bob along each jelly's own axis while squashing and stretching.
    --tilt   element rotation from Figma
    --axis   extra swim direction for art that is drawn at an angle
@@ -599,6 +604,10 @@ html {
 .twilight__heading-offset {
   margin-top: -0.63em;
   margin-left: 1.47em;
+}
+
+.twilight__p1-group {
+  display: contents;
 }
 
 .twilight__chunk {
@@ -1137,5 +1146,441 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .section-nav button {
     transition: none;
+  }
+}
+
+/* ---------- Mobile layout ---------- */
+
+/* Below tablet width the percentage-placed scene becomes a single column that flows
+   top to bottom in the order the sections read. Desktop absolute rules are overridden
+   with .depth-prefixed selectors, so the base styles above stay untouched. */
+@media (max-width: 768px) {
+  :root {
+    --fs-nav: 1.15rem;
+    --fs-title-xl: 3.2rem;
+    --fs-title: 2.8rem;
+    --fs-lead: 1.15rem;
+    --fs-body: 1rem;
+  }
+
+  .section-nav {
+    display: none;
+  }
+
+  .script-title {
+    line-height: 0.9;
+  }
+
+  /* Section headers */
+  .sunlit__about .script-title,
+  .gallery__title,
+  .abyss__press .script-title {
+    font-size: 3.8rem;
+  }
+
+  .depth--twilight .twilight__heading {
+    font-size: 3.8rem;
+  }
+
+  /* Every section after the surface: a centred column */
+  .depth:not(.depth--surface) {
+    height: auto;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10vw;
+    padding: 7vw 0 14vw;
+  }
+
+  .depth .text-block {
+    position: static;
+    width: min(88%, 32rem);
+    font-size: var(--fs-body);
+    line-height: 1.15;
+  }
+
+  .depth .text-block--right {
+    text-align: left;
+  }
+
+  .depth .text-block__meta {
+    margin-bottom: 0;
+  }
+
+  /* Photos that float freely on desktop sit in flow */
+  .depth .drift-group {
+    position: relative;
+    inset: auto;
+  }
+
+  /* ----- Surface ----- */
+
+  .depth--surface {
+    height: auto !important;
+    min-height: 88svh;
+  }
+
+  .depth .surface__name {
+    left: 10%;
+    top: 24%;
+    width: 80%;
+    translate: none;
+  }
+
+  /* Full iceberg: starts in the surface and carries on behind the About copy */
+  .depth .surface__iceberg {
+    left: 0;
+    top: 76%;
+    width: 100%;
+    /* Fully opaque for the top quarter, fading out towards the tip */
+    mask-image: linear-gradient(to bottom, #000 25%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 25%, transparent 100%);
+  }
+
+  /* ----- Sunlit: about, net, jellies in a row, skill list ----- */
+
+  .depth--sunlit .sunlit__about {
+    order: 1;
+    width: 74%; /* stays within the iceberg body */
+  }
+
+  .depth--sunlit .sunlit__skills-group {
+    order: 2;
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 82%;
+    margin-left: auto;
+    transform: rotate(6deg);
+  }
+
+  .depth--sunlit .sunlit__net {
+    touch-action: pan-y; /* let a thumb scroll the page across the net */
+  }
+
+  .depth--sunlit .sunlit__jellies {
+    order: 3;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 2.5vw;
+    width: 96%;
+  }
+
+  .depth--sunlit .sunlit__jellies .jelly {
+    position: relative;
+    left: auto;
+    top: auto;
+    flex: none;
+    --bob: -2vw;
+    width: 12vw;
+  }
+
+  .depth--sunlit .sunlit__jellies .sunlit__jelly-pink {
+    width: 24vw;
+  }
+
+  .depth--sunlit .sunlit__skills-title {
+    color: #3c3c7c;
+  }
+
+  .depth--sunlit .skills {
+    order: 4;
+    position: static;
+    width: min(88%, 24rem);
+    align-items: center;
+    text-align: center;
+  }
+
+  /* The iceberg's tip can run behind the list, so give the white text a blue edge */
+  .depth--sunlit .skills {
+    text-shadow: 0 0 0.35rem var(--sunlit), 0 0 0.7rem var(--sunlit);
+  }
+
+  .depth--sunlit .skills__list {
+    align-items: center;
+  }
+
+  .depth--sunlit .skills__details {
+    min-height: 9em;
+  }
+
+  /* ----- Twilight: heading, whale, p1, whale, p2, p3 photo ----- */
+
+  .depth--twilight .twilight__heading {
+    order: 1;
+    position: static;
+    align-self: flex-start;
+    margin-left: 6vw;
+  }
+
+  .depth.depth--twilight {
+    gap: 4vw;
+  }
+
+  /* Project 1 copy sits on the ice chunk, centred on the page */
+  .depth--twilight .twilight__p1-group {
+    order: 3;
+    display: grid;
+    place-items: center;
+    width: 100%;
+  }
+
+  /* Chunk at two thirds of its earlier width (96% of the page), behind the copy */
+  .depth--twilight .twilight__chunk {
+    grid-area: 1 / 1;
+    position: static;
+    width: 64%;
+    height: auto;
+    align-self: start;
+  }
+
+  /* Heading and description sit on the chunk; the photo hangs below it */
+  .depth--twilight .twilight__project-1 {
+    grid-area: 1 / 1;
+    align-self: start;
+    width: 56%;
+    margin-top: 2.6rem;
+  }
+
+  .depth .twilight__whale {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 80%;
+    margin-block: -15vh -5vw;
+  }
+
+  /* Sideways shift plus the scroll parallax from the base rule */
+  .depth--twilight .twilight__whale-1 {
+    order: 2;
+    translate: calc(-35% + var(--progress) * var(--drift-x)) calc(var(--progress) * var(--drift-y));
+  }
+
+  .depth--twilight .twilight__whale-2 {
+    order: 4;
+    translate: calc(35% + var(--progress) * var(--drift-x)) calc(var(--progress) * var(--drift-y));
+  }
+
+  .depth--twilight .twilight__project-2 {
+    order: 5;
+  }
+
+  .depth .twilight__p1-media {
+    position: static;
+    margin-top: 0.5rem;
+    border-radius: 0.5rem;
+  }
+
+  /* Photo + bubble frame share one portrait box; the photo sits in the frame's window */
+  .depth--twilight .drift-group {
+    order: 6;
+    width: min(78%, 22rem);
+    aspect-ratio: 1220 / 1629;
+    margin-block: -15vw;
+  }
+
+  .depth--twilight .drift-group .bubble-frame {
+    opacity: 0.8;
+  }
+
+  .depth .twilight__p3-frame {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .depth .twilight__p3-media {
+    left: 14.26%;
+    top: 29%;
+    width: 85.74%;
+  }
+
+  /* ----- Midnight: p3 copy, p4 photo, p4 copy, gallery ----- */
+
+  .depth.depth--midnight {
+    gap: 4vw;
+  }
+
+  .depth--midnight .midnight__project-3 {
+    order: 1;
+  }
+
+  .depth--midnight .drift-group {
+    order: 2;
+    width: min(88%, 26rem);
+    aspect-ratio: 576 / 512;
+    margin-block: -3vw;
+  }
+
+  .depth .midnight__p4-frame {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .depth .midnight__p4-media {
+    left: 13.4%;
+    top: 26.8%;
+    width: 74.1%;
+  }
+
+  .depth--midnight .midnight__project-4 {
+    order: 3;
+  }
+
+  .depth .midnight__gallery {
+    order: 4;
+    position: static;
+    width: 100%;
+    margin-top: 10vw;
+  }
+
+  .carousel {
+    --panel-w: 54vw;
+    gap: 0;
+  }
+
+  .carousel__nav {
+    position: relative;
+    z-index: 2; /* stay above the 3D panels that reach under the buttons */
+    padding: 0.75rem;
+  }
+
+  .carousel__nav img {
+    width: 1.1rem;
+  }
+
+  .gallery__description {
+    width: 88%;
+    line-height: 1.2;
+  }
+
+  /* ----- Abyss: header, press image flanked by arrows, description, submarine ----- */
+
+  .depth.depth--abyss {
+    --sand-h: 14vw;
+    padding: 16vw 0 44vw;
+    gap: 0;
+    justify-content: flex-start;
+  }
+
+  .depth .abyss__sand {
+    height: var(--sand-h);
+  }
+
+  .depth--abyss .drift-group {
+    translate: none; /* the press scene stays put so its grid reads cleanly */
+    z-index: 4;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    row-gap: 1.25rem;
+    width: 100%;
+    padding-inline: 2vw;
+  }
+
+  .depth .abyss__rays {
+    display: none;
+  }
+
+  /* The article and its body dissolve so the heading, details and hint can be placed individually */
+  .depth .abyss__press,
+  .depth .abyss__press .text-block__body {
+    display: contents;
+  }
+
+  .depth .abyss__press {
+    text-align: center;
+  }
+
+  .abyss__press .script-title {
+    grid-row: 1;
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  .depth .abyss__press-media {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    grid-row: 2;
+    grid-column: 2;
+    border-radius: 0.5rem;
+  }
+
+  .abyss__press-nav {
+    display: contents;
+  }
+
+  .abyss__press-nav button {
+    grid-row: 2;
+    padding: 0.9rem 0.6rem;
+    filter: brightness(1);
+  }
+
+  .abyss__press-nav button:first-child {
+    grid-column: 1;
+  }
+
+  .abyss__press-nav button:last-child {
+    grid-column: 3;
+  }
+
+  .abyss__press-nav img {
+    width: 1.2rem;
+  }
+
+  .abyss__press-details {
+    grid-row: 3;
+    grid-column: 1 / -1;
+    padding-inline: 4vw;
+  }
+
+  /* The hint names the submarine buttons, which are now the arrows beside the image:
+     show only the count */
+  .abyss__press-hint {
+    grid-row: 4;
+    grid-column: 1 / -1;
+    font-size: 0;
+  }
+
+  .abyss__press-count {
+    font-size: 0.9rem;
+  }
+
+  .depth .abyss__submarine {
+    position: relative;
+    left: auto;
+    top: auto;
+    grid-row: 5;
+    grid-column: 1 / -1;
+    justify-self: end;
+    width: min(80%, 24rem);
+    margin-top: 1.5rem;
+  }
+
+  .abyss__krill-thought {
+    max-width: 40vw;
+    font-size: 0.85rem;
+  }
+
+  /* Seafloor props hug the bottom of the screen */
+  .depth .abyss__chest {
+    left: 14%;
+    top: auto;
+    bottom: calc(var(--sand-h) * 0.3);
+    width: 38%;
+  }
+
+  .depth .abyss__kelp {
+    left: 3%;
+    top: auto;
+    bottom: calc(var(--sand-h) * 0.45);
+    width: 20%;
   }
 }

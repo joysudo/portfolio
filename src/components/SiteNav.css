@@ -31,3 +31,14 @@
   text-decoration-thickness: 0.06em;
   text-underline-offset: 0.2em;
 }
+
+@media (max-width: 768px) {
+  .site-nav {
+    top: 1.25rem;
+    padding-inline: 1.25rem;
+  }
+
+  .site-nav__group {
+    gap: 1.1rem;
+  }
+}

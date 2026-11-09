@@ -22,21 +22,24 @@ export default function Twilight() {
         <span className="twilight__heading-offset">Experience</span>
       </h2>
 
-      <Art src={icebergChunk} className="twilight__chunk" />
-      {hasText(p1) && (
-        <TextBlock
-          title={p1.title}
-          meta={p1.meta}
-          className="twilight__project-1 text-block--on-ice"
-        >
-          <p>{p1.description}</p>
-          {p1.src && (
-            <p>
-              <Art src={p1.src} alt={p1.title} className="twilight__p1-media media-placeholder" />
-            </p>
-          )}
-        </TextBlock>
-      )}
+      {/* Chunk + Project 1 copy: no box on desktop, one grid cell on mobile */}
+      <div className="twilight__p1-group">
+        <Art src={icebergChunk} className="twilight__chunk" />
+        {hasText(p1) && (
+          <TextBlock
+            title={p1.title}
+            meta={p1.meta}
+            className="twilight__project-1 text-block--on-ice"
+          >
+            <p>{p1.description}</p>
+            {p1.src && (
+              <p>
+                <Art src={p1.src} alt={p1.title} className="twilight__p1-media media-placeholder" />
+              </p>
+            )}
+          </TextBlock>
+        )}
+      </div>
 
       {/* Project #2 has no photo, whatever its src cell says */}
       {hasText(p2) && (
