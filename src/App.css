@@ -30,13 +30,16 @@ html {
   height: 90vh !important;
 }
 .depth--sunlit {
-  background: var(--sunlit);
+  /* Solid for the top two thirds, then fades into the next zone */
+  background: linear-gradient(to bottom, var(--sunlit) 66.67%, var(--twilight) 100%);
 }
 .depth--twilight {
-  background: var(--twilight);
+  /* Solid for the top two thirds, then fades into the next zone */
+  background: linear-gradient(to bottom, var(--twilight) 66.67%, var(--midnight) 100%);
 }
 .depth--midnight {
-  background: var(--midnight);
+  /* Solid for the top two thirds, then fades into the next zone */
+  background: linear-gradient(to bottom, var(--midnight) 66.67%, var(--abyss) 100%);
 }
 .depth--abyss {
   background: var(--abyss);
@@ -216,6 +219,20 @@ html {
 .wave__layer--front {
   fill: var(--sunlit);
   animation-duration: 11s;
+}
+
+/* Static two-layer version on top of the seafloor sand */
+.wave--sand .wave__layer {
+  animation: none;
+}
+
+.wave--sand .wave__layer--back {
+  fill: #ffe9c0;
+  left: -12%;
+}
+
+.wave--sand .wave__layer--front {
+  fill: var(--sand);
 }
 
 @keyframes wave-roll {
@@ -691,16 +708,18 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6vw;
+  gap: 0;
 }
 
-.midnight__gallery .text-block {
-  position: static;
-  width: 67.66%;
+/* Column: heading, carousel, description */
+.gallery__title {
+  line-height: 0.5;
 }
 
-/* Reserve two lines so the heading doesn't jump as descriptions change */
 .gallery__description {
+  width: 67.66%;
+  text-align: center;
+  line-height: 1;
   min-height: 1em;
   animation: fade-in 0.5s ease;
 }
@@ -748,7 +767,7 @@ html {
 
 .carousel__viewport {
   position: relative;
-  height: calc(var(--panel-w) * 1.1);
+  height: calc(var(--panel-w) * 0.9);
   perspective: calc(var(--panel-w) * 4.5);
   perspective-origin: 50% 30%;
 }

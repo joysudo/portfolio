@@ -1,4 +1,3 @@
-import TextBlock from './TextBlock'
 import { GALLERY_ITEMS } from '../data/gallery'
 import useCarousel from '../hooks/useCarousel'
 import arrow from '../assets/figma/arrow_left.svg'
@@ -13,11 +12,7 @@ export default function Gallery() {
 
   return (
     <div className="midnight__gallery" id="gallery">
-      <TextBlock title="Gallery" className="text-block--center">
-        <p className="text-lead gallery__description" key={active} aria-live="polite">
-          {GALLERY_ITEMS[active].description}
-        </p>
-      </TextBlock>
+      <h2 className="script-title gallery__title">Gallery</h2>
 
       <div
         className="carousel"
@@ -55,6 +50,10 @@ export default function Gallery() {
           <img src={arrow} alt="" className="flip-x" />
         </button>
       </div>
+
+      <p className="text-lead gallery__description" key={active} aria-live="polite">
+        {GALLERY_ITEMS[active].description}
+      </p>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Art from '../components/Art'
+import Wave from '../components/Wave'
 import useCarousel from '../hooks/useCarousel'
 import { PRESS_ITEMS } from '../data/press'
 import submarineRays from '../assets/submarine_rays.png'
@@ -83,7 +84,9 @@ export default function Abyss() {
 
   return (
     <section className="depth depth--abyss" id="press">
-      <div className="abyss__sand" aria-hidden="true" />
+      <div className="abyss__sand" aria-hidden="true">
+        <Wave variant="sand" />
+      </div>
 
       <Art src={chest} className="abyss__chest" />
 

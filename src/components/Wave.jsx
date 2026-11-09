@@ -1,4 +1,5 @@
-// Rolling wave at the sky / sunlit boundary. Each layer is a path two periods wide,
+// Wave layers at the sky / sunlit boundary (rolling) and on top of the sand (static,
+// two layers, via variant="sand"; styling lives in CSS). Each layer is a path two periods wide,
 // so sliding it by half its width loops seamlessly.
 const WAVELENGTH = 720
 const VIEW_W = WAVELENGTH * 4
@@ -22,10 +23,13 @@ const LAYERS = [
   { className: 'wave__layer wave__layer--front', amplitude: 14, baseline: 72 },
 ]
 
-export default function Wave() {
+const SAND_LAYERS = LAYERS.filter(({ className }) => /--(back|front)$/.test(className))
+
+export default function Wave({ variant }) {
+  const layers = variant === 'sand' ? SAND_LAYERS : LAYERS
   return (
-    <div className="wave" aria-hidden="true">
-      {LAYERS.map(({ className, amplitude, baseline }) => (
+    <div className={`wave${variant ? ` wave--${variant}` : ''}`} aria-hidden="true">
+      {layers.map(({ className, amplitude, baseline }) => (
         <svg
           key={className}
           className={className}
